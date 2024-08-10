@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         hide X inpression zombie
+// @name         hide X impression zombie
 // @namespace    http://smbd.jp/
 // @version      2024-08-10-01
-// @description  hide X imression zombie
+// @description  hide X impression zombie
 // @author       smbd
 // @match        https://x.com/*/status/*
 // @match        https://twitter.com/*/status/*
