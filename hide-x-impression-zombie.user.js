@@ -9,6 +9,8 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @grant        none
+// @updateURL    https://github.com/smbd/userscripts/raw/main/hide-x-impression-zombie.user.js
+// @downloadURL  https://github.com/smbd/userscripts/raw/main/hide-x-impression-zombie.user.js
 // ==/UserScript==
 
 (function () {
