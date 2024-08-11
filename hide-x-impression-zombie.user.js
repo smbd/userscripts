@@ -24,7 +24,7 @@
 	// 絵文字を含むアカウント名は <span><span>foo</span><img><span>bar</span></span> となることに注意
 	const accountSelector = `${idSelector} > div > div > span`
 
-	// 日本以外の国旗: "Regional indicator symbol" で "[A-IK-Z][A-Z]" OR "J[A-Z]"
+	// 日本以外の国旗: "Regional indicator symbol" で "[A-IK-Z][A-Z]" OR "J[A-OQ-Z]"
 	const countryflag_regex = /([\u{1F1E6}-\u{1F1EE}\u{1F1F0}-\u{1F1FF}][\u{1F1E6}-\u{1F1FF}]|\u{1F1EF}[\u{1F1E6}-\u{1F1F4}\u{1F1F6}-\u{1F1FF}])/gu;
 
 	const emoji_regex_class = "[\u{2600}-\u{27BF}\u{1F000}-\u{1FFFF}]"
