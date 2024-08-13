@@ -6,6 +6,8 @@
 // @author       smbd
 // @match        https://www.amazon.co.jp/*/dp/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=amazon.co.jp
+// @updateURL    https://github.com/smbd/userscripts/raw/main/amazon-shorten-url.user.js
+// @downloadURL  https://github.com/smbd/userscripts/raw/main/amazon-shorten-url.user.js
 // ==/UserScript==
 
 (function() {
