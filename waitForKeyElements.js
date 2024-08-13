@@ -18,23 +18,6 @@
 
 */
 
-// https://stackoverflow.com/a/46522991
-window.ds = {
-	_storage: new WeakMap(),
-	put: function (e,k,o) {
-		if (!this._storage.has(e)) {
-			this._storage.set(e, new Map());
-		}
-		this._storage.get(e).set(k,o);
-	},
-	get: function (e,k) {
-		return this._storage.get(e).get(k);
-	},
-	has: function (e,k) {
-		return this._storage.has(e) && this._storage.get(e).has(k);
-	}
-}
-
 function waitForKeyElements(
 	selectorTxt,    /* Required: The CSS selector string that specifies the desired element(s). */
 	actionFunction, /* Required: The code to run when elements are found. It is passed a jNode to the matched element. */
@@ -54,7 +37,7 @@ function waitForKeyElements(
 		btargetsFound = true;
 		//--- Found target node(s).  Go through each and act if they are new.
 		targetNodes.forEach(e => {
-			var alreadyFound = ds.get(e, 'alreadyFound') || false;
+			var alreadyFound = e.dataset.alreadyFound || false;
 
 			if (!alreadyFound) {
 				//--- Call the payload function.
@@ -62,7 +45,7 @@ function waitForKeyElements(
 				if (cancelFound) {
 					btargetsFound = false;
 				} else {
-					ds.put(e, 'alreadyFound', true);
+					e.dataset.alreadyFound = true;
 				}
 			}
 		});
