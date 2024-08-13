@@ -6,6 +6,7 @@
 // @author       smbd
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ihighway.jp
 // @require      https://raw.githubusercontent.com/smbd/userscripts/main/waitForKeyElements.js
+// @match        https://ihighway.jp/pcsite/map/*
 // @updateURL    https://github.com/smbd/userscripts/raw/main/ihighway-open-jam.user.js
 // @downloadURL  https://github.com/smbd/userscripts/raw/main/ihighway-open-jam.user.js
 // @grant        none
