@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         hide X impression zombie
 // @namespace    http://smbd.jp/
-// @version      2024-08-10-01
+// @version      2024-08-13-01
 // @description  hide X impression zombie
 // @author       smbd
 // @match        https://x.com/*/status/*
 // @match        https://twitter.com/*/status/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
-// @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @require      https://raw.githubusercontent.com/smbd/userscripts/main/waitForKeyElements.js
 // @grant        none
 // @updateURL    https://github.com/smbd/userscripts/raw/main/hide-x-impression-zombie.user.js
 // @downloadURL  https://github.com/smbd/userscripts/raw/main/hide-x-impression-zombie.user.js
