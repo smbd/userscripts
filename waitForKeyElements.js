@@ -18,66 +18,83 @@
 
 */
 
-function waitForKeyElements (
-    selectorTxt,    /* Required: The CSS selector string that specifies the desired element(s). */
-    actionFunction, /* Required: The code to run when elements are found. It is passed a jNode to the matched element. */
-    bWaitOnce,      /* Optional: If false, will continue to scan for new elements even after the first match is found. */
-    iframeSelector  /* Optional: If set, identifies the iframe to search. */
+// https://stackoverflow.com/a/46522991
+window.ds = {
+	_storage: new WeakMap(),
+	put: function (e,k,o) {
+		if (!this._storage.has(e)) {
+			this._storage.set(e, new Map());
+		}
+		this._storage.get(e).set(k,o);
+	},
+	get: function (e,k) {
+		return this._storage.get(e).get(k);
+	},
+	has: function (e,k) {
+		return this._storage.has(e) && this._storage.get(e).has(k);
+	}
+}
+
+function waitForKeyElements(
+	selectorTxt,    /* Required: The CSS selector string that specifies the desired element(s). */
+	actionFunction, /* Required: The code to run when elements are found. It is passed a jNode to the matched element. */
+	bWaitOnce,      /* Optional: If false, will continue to scan for new elements even after the first match is found. */
+	iframeSelector  /* Optional: If set, identifies the iframe to search. */
 ) {
-    var targetNodes, btargetsFound;
+	var targetNodes, btargetsFound;
 
-    if (typeof iframeSelector == "undefined") {
-        targetNodes = document.querySelectorAll(selectorTxt);
-    } else {
-        if (! iframeSelector.match(/ iframe/)) { iframeSelector += " iframe" ; }
-        targetNodes = document.querySelector(iframeSelector).contentWindow.document.querySelectorAll(selectorTxt);
-    }
+	if (typeof iframeSelector == "undefined") {
+		targetNodes = document.querySelectorAll(selectorTxt);
+	} else {
+		if (!iframeSelector.match(/ iframe/)) { iframeSelector += " iframe"; }
+		targetNodes = document.querySelector(iframeSelector).contentWindow.document.querySelectorAll(selectorTxt);
+	}
 
-    if (targetNodes  &&  targetNodes.length > 0) {
-        btargetsFound   = true;
-        //--- Found target node(s).  Go through each and act if they are new.
-        targetNodes.forEach( e => function () {
-            var alreadyFound = e.data ('alreadyFound')  ||  false;
+	if (targetNodes && targetNodes.length > 0) {
+		btargetsFound = true;
+		//--- Found target node(s).  Go through each and act if they are new.
+		targetNodes.forEach(e => {
+			var alreadyFound = ds.get(e, 'alreadyFound') || false;
 
-            if (!alreadyFound) {
-                //--- Call the payload function.
-                var cancelFound     = actionFunction (e);
-                if (cancelFound) {
-                    btargetsFound   = false;
-                } else {
-                    e.data ('alreadyFound', true);
-                }
-            }
-        });
-    } else {
-        btargetsFound   = false;
-    }
+			if (!alreadyFound) {
+				//--- Call the payload function.
+				var cancelFound = actionFunction(e);
+				if (cancelFound) {
+					btargetsFound = false;
+				} else {
+					ds.put(e, 'alreadyFound', true);
+				}
+			}
+		});
+	} else {
+		btargetsFound = false;
+	}
 
-    //--- Get the timer-control variable for this selector.
-    var controlObj      = waitForKeyElements.controlObj  ||  {};
-    var controlKey      = selectorTxt.replace (/[^\w]/g, "_");
-    var timeControl     = controlObj [controlKey];
+	//--- Get the timer-control variable for this selector.
+	var controlObj = waitForKeyElements.controlObj || {};
+	var controlKey = selectorTxt.replace(/[^\w]/g, "_");
+	var timeControl = controlObj[controlKey];
 
-    //--- Now set or clear the timer as appropriate.
-    if (btargetsFound  &&  bWaitOnce  &&  timeControl) {
-        //--- The only condition where we need to clear the timer.
-        clearInterval (timeControl);
-        delete controlObj [controlKey]
-    }
-    else {
-        //--- Set a timer, if needed.
-        if ( ! timeControl) {
-            timeControl = setInterval ( function () {
-                    waitForKeyElements (    selectorTxt,
-                                            actionFunction,
-                                            bWaitOnce,
-                                            iframeSelector
-                                        );
-                },
-                300
-            );
-            controlObj [controlKey] = timeControl;
-        }
-    }
-    waitForKeyElements.controlObj   = controlObj;
+	//--- Now set or clear the timer as appropriate.
+	if (btargetsFound && bWaitOnce && timeControl) {
+		//--- The only condition where we need to clear the timer.
+		clearInterval(timeControl);
+		delete controlObj[controlKey]
+	}
+	else {
+		//--- Set a timer, if needed.
+		if (!timeControl) {
+			timeControl = setInterval(function () {
+				waitForKeyElements(selectorTxt,
+					actionFunction,
+					bWaitOnce,
+					iframeSelector
+				);
+			},
+				300
+			);
+			controlObj[controlKey] = timeControl;
+		}
+	}
+	waitForKeyElements.controlObj = controlObj;
 }
