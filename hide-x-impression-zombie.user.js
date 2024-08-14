@@ -4,8 +4,8 @@
 // @version      2024-08-13-01
 // @description  hide X impression zombie
 // @author       smbd
-// @match        https://x.com/*/status/*
-// @match        https://twitter.com/*/status/*
+// @match        https://x.com/*
+// @match        https://twitter.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
 // @require      https://raw.githubusercontent.com/smbd/userscripts/main/waitForKeyElements.js
 // @grant        none
