@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X.com absolute time
 // @namespace    smbd.jp
-// @version      1.0.0
+// @version      1.0.1
 // @description  show post time as absolute time
 // @author       smbd
 // @match        https://x.com/home
@@ -82,5 +82,5 @@ function updatePostTime(d) {
         }); // observer
 
         observer.observe(document.querySelector(timelineSelector), { childList: true, subtree: true });
-    }, true); // 一度だけ待つ
+    }, false); // ページ遷移したときも再度変更されるように
 })();
