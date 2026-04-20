@@ -6,6 +6,8 @@
 // @description  引用リポのみの返信＆同一アカウントから2件以上のリプライを非表示にする
 // @match        https://x.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
+// @updateURL    https://github.com/smbd/userscripts/raw/refs/heads/main/X-hide-zombies-replies.user.js
+// @downloadURL  https://github.com/smbd/userscripts/raw/refs/heads/main/X-hide-zombies-replies.user.js
 // @grant        none
 // ==/UserScript==
 
