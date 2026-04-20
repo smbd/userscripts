@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X.com hide header when scroll
 // @namespace    smbd.jp
-// @version      1.0.0
+// @version      1.1.0
 // @description  hide header when scroll
 // @author       smbd
 // @match        https://x.com/home
@@ -12,7 +12,7 @@
 // @downloadURL  https://github.com/smbd/userscripts/raw/main/X-hide-header-when-scroll.user.js
 // ==/UserScript==
 
-const sentinelSelector = 'h1[role="heading"] + div div[data-testid="cellInnerDiv"]';
+const sentinelSelector = 'header[role="banner"] + main[role="main"] h1[role="heading"] + div div[data-testid="cellInnerDiv"]';
 const headerSelector = 'div[data-testid="primaryColumn"] > div:nth-of-type(1) > div:nth-of-type(1):has(> div > div > nav.TimelineTabs)';
 
 (function() {
@@ -31,8 +31,9 @@ const headerSelector = 'div[data-testid="primaryColumn"] > div:nth-of-type(1) > 
                         io.disconnect();
                     }
                 });
-            }, { threshold: 1 }); // 少しでも見えなくなったら
+            //}, { threshold: 0 }); // 少しでも見えなくなったら
+            }); // 全く見えなくなったら
             io.observe(sentinel);
         }
-    }, true); // 一回だけ実行する
+    }, false); // ページ遷移したときも再度変更されるように
 })();
