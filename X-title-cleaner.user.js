@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         X title cleaner
-// @description  X title cleaner
+// @description  タイトルの余計な文字を消す
 // @namespace    http://smbd.jp/
 // @version      1.1.0
 // @author       smbd
