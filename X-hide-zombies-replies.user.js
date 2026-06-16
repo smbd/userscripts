@@ -2,7 +2,7 @@
 // @name         X hide zombie's replies
 // @namespace    smbd.jp
 // @author       claude & smbd
-// @version      1.0
+// @version      1.1
 // @description  引用リポのみの返信＆同一アカウントから2件以上のリプライを非表示にする
 // @match        https://x.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
@@ -15,8 +15,9 @@
     'use strict';
 
     const THRESHOLD = 2; // この件数以上のリプライを非表示にする
-    const BLOCKMODE = "block"; // block or highlight
-    const BGCOLOR_LIST = ["red", "blue", "green"];
+    const BLOCKMODE = "highlight"; // block or highlight
+    const BGCOLOR_QUOTE = "gray";
+    const BGCOLOR_DOUBLE = "gray";
 
     function getAuthorHandle(article) {
         const userNameDiv = article.querySelector('[data-testid="User-Name"]');
@@ -31,12 +32,12 @@
     }
 
     function getMainTweetAuthor() {
-        const match = location.pathname.match(/^\/([^/]+)\/status\//);
+        const match = location.pathname.match(/^\/([^/]+)\/status\/\d+$/);
         return match ? match[1].toLowerCase() : null;
     }
 
     function processReplies() {
-        if (!location.pathname.match(/\/status\/\d+/)) return;
+        if (!location.pathname.match(/\/status\/\d+$/)) return;
 
         const mainAuthor = getMainTweetAuthor();
         const articles = Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
@@ -64,11 +65,12 @@
 
             // 引用リポのみの返信を非表示
             if (article.querySelectorAll('div:has(> div[data-testid="Tweet-User-Avatar"])').length == 2
-               && !article.querySelector('div > div:nth-of-type(3) > div[data-testid="tweetText"]')) {
+               && !article.querySelector('div:has(div[data-testid="tweetText"][id])')) {
                 const wrapper = article.closest('[data-testid="cellInnerDiv"]') || article.parentElement;
+                console.log(article.querySelectorAll('div:has(> div[data-testid="Tweet-User-Avatar"])'));
                 if (wrapper) {
                     if (BLOCKMODE == 'highlight') {
-                        wrapper.style.backgroundColor = BGCOLOR_LIST[1];
+                        wrapper.style.backgroundColor = BGCOLOR_QUOTE;
                     } else {
                         wrapper.style.display = 'none';
                     }
@@ -77,7 +79,7 @@
                 }
             }
 
-            // 他人のリプが着いてるリプはカウントしない(リセットする)
+            // 他人のリプが付いてるリプはカウントしない(リセットする)
             if (article.querySelector('div[data-testid="Tweet-User-Avatar"] + div')) { // リプが着いている
                 const nextArticle = article.closest('div[data-testid="cellInnerDiv"]').nextElementSibling.querySelector('article');
                 if (nextArticle) {
@@ -101,7 +103,7 @@
                     const wrapper = article.closest('[data-testid="cellInnerDiv"]') || article.parentElement;
                     if (wrapper) {
                         if (BLOCKMODE == 'highlight') {
-                            wrapper.style.backgroundColor = BGCOLOR_LIST[0];
+                            wrapper.style.backgroundColor = BGCOLOR_DOUBLE;
                         } else {
                             wrapper.style.display = 'none';
                         }
