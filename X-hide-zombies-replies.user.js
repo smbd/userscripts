@@ -2,7 +2,7 @@
 // @name         X hide zombie's replies
 // @namespace    smbd.jp
 // @author       claude & smbd
-// @version      1.1
+// @version      1.2
 // @description  引用リポのみの返信＆同一アカウントから2件以上のリプライを非表示にする
 // @match        https://x.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
@@ -67,7 +67,6 @@
             if (article.querySelectorAll('div:has(> div[data-testid="Tweet-User-Avatar"])').length == 2
                && !article.querySelector('div:has(div[data-testid="tweetText"][id])')) {
                 const wrapper = article.closest('[data-testid="cellInnerDiv"]') || article.parentElement;
-                console.log(article.querySelectorAll('div:has(> div[data-testid="Tweet-User-Avatar"])'));
                 if (wrapper) {
                     if (BLOCKMODE == 'highlight') {
                         wrapper.style.backgroundColor = BGCOLOR_QUOTE;
@@ -80,7 +79,7 @@
             }
 
             // 他人のリプが付いてるリプはカウントしない(リセットする)
-            if (article.querySelector('div[data-testid="Tweet-User-Avatar"] + div')) { // リプが着いている
+            if (article.querySelector(':scope > div > div > div > div > div[data-testid="Tweet-User-Avatar"] + div')) { // リプが着いている
                 const nextArticle = article.closest('div[data-testid="cellInnerDiv"]').nextElementSibling.querySelector('article');
                 if (nextArticle) {
                     const nextHandle = getAuthorHandle(nextArticle);
