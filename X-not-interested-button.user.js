@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X: 「興味がない」ボタンを追加
 // @namespace    https://x.com/
-// @version      1.0.0
+// @version      1.0.1
 // @author       smbd
 // @description  ポストの操作列に「このポストに興味がない」ボタンを追加。
 // @match        https://x.com/home
@@ -27,7 +27,7 @@
     [${WRAPPER_ATTRIBUTE}] {
       align-items: stretch;
       display: flex;
-      flex: 0 0 auto;
+      flex: 1 1 0%;
       justify-content: flex-start;
       width: 37.25px;
     }
