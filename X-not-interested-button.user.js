@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X: 「興味がない」ボタンを追加
 // @namespace    https://x.com/
-// @version      1.0.2
+// @version      1.0.3
 // @author       smbd
 // @description  ポストの操作列に「このポストに興味がない」ボタンを追加。
 // @match        https://x.com/home
@@ -18,6 +18,7 @@
   const TWEET_SELECTOR = 'article[data-testid="tweet"]';
   const INSERT_AFTER_SELECTOR = 'button[data-testid="bookmark"]';
   const MORE_SELECTOR = 'button[data-testid="caret"][aria-haspopup="menu"]';
+  const NOTINTERESTED_SELECTOR = 'div[role="menu"] div[data-testid="Dropdown"] > div[role="menuitem"]:nth-of-type(1), div[data-testid="sheetDialog"] > div[role="menuitem"]:nth-of-type(1)';
   const BUTTON_ATTRIBUTE = 'data-x-not-interested-button';
   const WRAPPER_ATTRIBUTE = 'data-x-not-interested-wrapper';
   const BUTTON_LABEL = 'このポストに興味がない';
@@ -87,9 +88,7 @@
   };
 
   const findNotInterestedMenuItem = () => {
-    const selector = 'div[role="menu"] div[data-testid="Dropdown"] > div[role="menuitem"]';
-
-    return [...document.querySelectorAll(selector)].find((element) => {
+    return [...document.querySelectorAll(NOTINTERESTED_SELECTOR)].find((element) => {
       if (!isVisible(element)) return false;
 
       const label = [
@@ -185,6 +184,7 @@
       const menuItem = await waitForNotInterestedMenuItem();
       menuItem.click();
       setButtonState(button, 'done');
+      console.log('「興味なし」送信');
     } catch (error) {
       console.warn('[X: 興味がないボタン]', error);
       setButtonState(button, 'error');
