@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         weathercock-detector-userscript
-// @namespace    smbd.jp
+// @namespace    github.com/smbd
 // @version      0.1.0
-// @author       claude opus5
+// @author       smbd and codex gpt-5.6-luna max
 // @description  Google検索結果に表示されている、特定のfaviconを使うサイトを非表示にする (base: https://github.com/kawa-nobu/weathercock-detector)
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=komeri.com
 // @match        https://www.google.com/*
