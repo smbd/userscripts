@@ -10,6 +10,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      gstatic.com
 // @connect      *.gstatic.com
+// @updateURL    https://github.com/smbd/userscripts/raw/main/weathercock-detector-userscript.user.js
+// @downloadURL  https://github.com/smbd/userscripts/raw/main/weathercock-detector-userscript.user.js
 // ==/UserScript==
 
 (function () {
