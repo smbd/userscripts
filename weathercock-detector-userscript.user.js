@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         weathercock-detector-userscript
-// @namespace    github.com/smbd
+// @namespace    smbd.jp
 // @version      0.1.0
 // @author       smbd and codex gpt-5.6-luna max
 // @description  Google検索結果に表示されている、特定のfaviconを使うサイトを非表示にする (base: https://github.com/kawa-nobu/weathercock-detector)
